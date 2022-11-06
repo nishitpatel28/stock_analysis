@@ -2,6 +2,7 @@ from base_class import BaseClass
 from plot_data import PlotData
 from portfolio import PortFolio
 from stock_data import StockData
+from total_return import TotalReturn
 
 class ABC:
     """
@@ -16,9 +17,12 @@ class ABC:
         amount = baseclass.investment_amount
         stock_data = StockData(tickers)
         data = stock_data.get_data()
-        pf = PortFolio(data, tickers, amount)
-        pf.get_portfolio()
-        pf.get_comb_portfolio()
+        pf = PortFolio(data, tickers)
+        pf.get_sep_portfolio(amount)
+        pf.get_comb_portfolio(amount)
+        total_return = TotalReturn(amount, tickers, data)
+        if amount > 5:
+            total_return.calculate_values(5000)
         plot_data = PlotData(data, tickers)
         plot_data.generate_graphs()
 

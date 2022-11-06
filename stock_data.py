@@ -3,7 +3,7 @@ import requests
 
 
 API_KEY = "1UT88AMAZLFR2NT9"
-FUNCTION = "TIME_SERIES_DAILY"
+FUNCTION = "TIME_SERIES_DAILY_ADJUSTED"
 BASE_URL = "https://www.alphavantage.co/query?"
 
 
@@ -61,6 +61,8 @@ class StockData:
             return dict containing date and closing price for that specific date.
         """
         data_dict = {}
+        if "Time Series (Daily)" not in data:
+            raise Exception("Failed to obtain data from Aplhavantage API")
         daily_data = data["Time Series (Daily)"]
         if len(list(daily_data.items())) >= 365:
             filtered_data = list(daily_data.items())[:365]
